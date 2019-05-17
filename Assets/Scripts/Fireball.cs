@@ -6,6 +6,7 @@ public class Fireball : MonoBehaviour {
 
 	[SerializeField] float speed;
 	[SerializeField] float lifespan;
+	[SerializeField] int damage;
 
 	// Use this for initialization
 	void Start () {
@@ -26,9 +27,28 @@ public class Fireball : MonoBehaviour {
 		
 	}
 
-	public void init(Camera cam)
+	public void init(Camera cam, Vector3 direction)
 	{
-		transform.forward = cam.transform.forward;
+		transform.forward = direction;
 		gameObject.transform.GetChild(0).GetComponent<Billboard>().SetCam(cam);
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		
+		if (other.tag == "Wall")
+		{
+			Destroy(gameObject);
+		}
+
+		if (other.tag == "Enemy")
+		{
+			//do damage
+			other.gameObject.GetComponent<EnemyDamage>().TakeDamage(damage);
+
+			Destroy(gameObject);
+
+		}
+
 	}
 }

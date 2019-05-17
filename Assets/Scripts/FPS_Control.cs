@@ -13,6 +13,9 @@ public class FPS_Control : MonoBehaviour
 {
 
     [SerializeField] float speed = 5.0f;
+    
+    [SerializeField] float m_lookSensitivity = 3.0f;
+
     private float m_MovX;
     private float m_MovY;
     private Vector3 m_moveHorizontal;
@@ -23,7 +26,6 @@ public class FPS_Control : MonoBehaviour
     private float m_xRot;
     private Vector3 m_rotation;
     private Vector3 m_cameraRotation;
-    private float m_lookSensitivity = 3.0f;
 
     [Header("The Camera the player looks through")]
     public Camera m_Camera;
@@ -69,8 +71,15 @@ public class FPS_Control : MonoBehaviour
 
         if (m_Camera != null)
         {
-            //negate this value so it rotates like a FPS not like a plane
+            //negate this value so it rotates like a FPS
             m_Camera.transform.Rotate(-m_cameraRotation);
+
+            //clamp the camera
+            if(m_Camera.transform.localRotation.x > 0.69 || m_Camera.transform.localRotation.x < -0.69)
+            {
+                m_Camera.transform.Rotate(m_cameraRotation);
+            }
+
         }
 
     }

@@ -26,9 +26,11 @@ public class Launcher : MonoBehaviour {
 		if(Input.GetMouseButton(0) && coolDownTimer >= coolDown)
 		{
 			GameObject currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-			currProjectile.GetComponent<Fireball>().init(cam);
+			currProjectile.GetComponent<Fireball>().init(cam, cam.transform.forward);
 			coolDownTimer = 0.0f;
 		}
+
+
 		
 	}
 }
