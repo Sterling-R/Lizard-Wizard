@@ -1,10 +1,4 @@
-﻿// FPS Controller
-// 1. Create a Parent Object like a 3D model
-// 2. Make the Camera the user is going to use as a child and move it to the height you wish. 
-// 3. Attach a Rigidbody to the parent
-// 4. Drag the Camera into the m_Camera public variable slot in the inspector
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,14 +20,13 @@ public class FPS_Control : MonoBehaviour
     private float m_xRot;
     private Vector3 m_rotation;
     private Vector3 m_cameraRotation;
-
-    [Header("The Camera the player looks through")]
     public Camera m_Camera;
 
     // Use this for initialization
     private void Start()
     {
         m_Rigid = GetComponent<Rigidbody>();
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -79,7 +72,6 @@ public class FPS_Control : MonoBehaviour
             {
                 m_Camera.transform.Rotate(m_cameraRotation);
             }
-
         }
 
     }

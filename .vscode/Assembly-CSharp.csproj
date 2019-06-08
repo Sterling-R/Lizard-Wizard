@@ -54,19 +54,26 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AggroSphere.cs" />
+     <Compile Include="Assets\Scripts\Ammo.cs" />
      <Compile Include="Assets\Scripts\AttackSphere.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
+     <Compile Include="Assets\Scripts\ComputeTextureTiling.cs" />
+     <Compile Include="Assets\Scripts\DamageFlash.cs" />
+     <Compile Include="Assets\Scripts\DontGoThroughThings.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyDamage.cs" />
-     <Compile Include="Assets\Scripts\EnemyProjectile.cs" />
      <Compile Include="Assets\Scripts\Fireball.cs" />
      <Compile Include="Assets\Scripts\FPS_Control.cs" />
+     <Compile Include="Assets\Scripts\HeadBob.cs" />
+     <Compile Include="Assets\Scripts\Ice.cs" />
      <Compile Include="Assets\Scripts\Launcher.cs" />
+     <Compile Include="Assets\Scripts\Lightning.cs" />
+     <Compile Include="Assets\Scripts\MessageText.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
- <Reference Include="UnityEditor.StandardEvents">
- <HintPath>D:/Documents/Unity_Projects/Lizard Wizard/Lizard Wizard/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
- </Reference>
+     <Compile Include="Assets\Scripts\Spark.cs" />
+     <Compile Include="Assets\Scripts\SparkGenerator.cs" />
+     <None Include="Assets\Scripts\WorldSpaceTiling.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Documents/Unity_Projects/Lizard Wizard/Lizard Wizard/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
@@ -273,12 +280,6 @@
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>D:/Program Files/Unity2018(old)/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Users/Sterling/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.StandardEvents">
- <HintPath>C:/Users/Sterling/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>D:/Program Files/Unity2018(old)/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

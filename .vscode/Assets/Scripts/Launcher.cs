@@ -41,7 +41,20 @@ public class Launcher : MonoBehaviour {
 		if(Input.GetMouseButton(0) && coolDownTimer >= coolDown && (spells[currSpellIndex].mana > 0 || currSpellIndex == 0))
 		{
 			GameObject currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-			currProjectile.GetComponent<Projectile>().Init(cam, cam.transform.forward, false);
+			currProjectile.GetComponent<Projectile>().Init(cam, cam.transform.forward, false, null);
+			
+			//intstantiate two additional projectiles for ice spell
+			if(currSpellIndex == 2)
+			{
+				currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+				currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(-5, Vector3.up) * cam.transform.forward, false, null);
+
+				currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+				currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(5, Vector3.up) * cam.transform.forward, false, null);
+			}
+
+
+
 			coolDownTimer = 0.0f;
 			spells[currSpellIndex].mana -= 1;
 		}
@@ -64,6 +77,26 @@ public class Launcher : MonoBehaviour {
 				SetCurrSpell(1);
 			}
 		}
+
+		//ice
+		if(Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			//check that player has mana for spell
+			if(spells[2].mana > 0)
+			{
+				SetCurrSpell(2);
+			}
+		}
+
+		//lightning
+		if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			//check that player has mana for spell
+			if(spells[3].mana > 0)
+			{
+				SetCurrSpell(3);
+			}
+		}
 	}
 
 	//function for swithing spells
@@ -79,5 +112,10 @@ public class Launcher : MonoBehaviour {
 	public Spell GetCurrSpell()
 	{
 		return spells[currSpellIndex];
+	}
+
+	public Spell[] GetSpells()
+	{
+		return spells;
 	}
 }

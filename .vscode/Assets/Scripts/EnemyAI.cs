@@ -7,9 +7,15 @@ public class EnemyAI : MonoBehaviour {
 
 	[SerializeField] GameObject player;
 	[SerializeField] float attackCooldown;
+	[SerializeField] float freezeTime;
 	[SerializeField] GameObject attackObject;
 	[SerializeField] int meleeDamage;
+	[SerializeField] GameObject child;
 
+	Color freezeColor;
+	Color originalColor;
+
+	[SerializeField] GameObject navObj;
 	NavMeshAgent agent;
 
 	enum AttackType
@@ -25,24 +31,33 @@ public class EnemyAI : MonoBehaviour {
 	public Camera cam;
 
 	float cooldownTimer;
+	float freezeTimer;
 	
 	bool inAttackRange;
 	bool attackPossible;
 	enum AIState
 	{
 		Patrol,
-		Aggro
+		Aggro,
+		Frozen
 	}
 
 	AIState currState;
+
+	[SerializeField] Transform[] patrolPoints;
+	int pointIndex; 
 
 	// Use this for initialization
 	void Start () {
 		currState = AIState.Patrol;
 		cooldownTimer = attackCooldown;
 
-		agent = gameObject.GetComponent<NavMeshAgent>();
-		
+		agent = navObj.GetComponent<NavMeshAgent>();
+
+		freezeColor = new Color (0,150,255,255);
+		originalColor = child.GetComponent<SpriteRenderer>().color;
+
+		pointIndex = 0;
 	}
 	
 	// Update is called once per frame
@@ -51,8 +66,15 @@ public class EnemyAI : MonoBehaviour {
 		if(currState == AIState.Patrol)
 		{
 			//patrol along given path
+			// Choose the next destination point when the agent gets
+            // close to the current one.
+            if (!agent.pathPending && agent.remainingDistance < 0.1f)
+			{
+                GotoNextPoint();
+			}
 			
 		}
+		
 		cooldownTimer += Time.deltaTime;
 
 		if(currState == AIState.Aggro)
@@ -90,18 +112,54 @@ public class EnemyAI : MonoBehaviour {
 					Vector3 targetDirection = targetVertex - transform.position;
 					targetDirection.Normalize();
 
-					projectile.GetComponent<Projectile>().Init(cam, targetDirection, true);
+					projectile.GetComponent<Projectile>().Init(cam, targetDirection, true, null);
 				}
 
 				cooldownTimer = 0f;
 			}
 		}
-		
+
+		if(currState == AIState.Frozen)
+		{
+			agent.isStopped = true;
+			child.GetComponent<SpriteRenderer>().color = freezeColor;
+			
+			freezeTimer += Time.deltaTime;
+
+			if(freezeTimer >= freezeTime)
+			{
+				currState = AIState.Patrol;
+			}
+		}
+
+		else
+		{
+			child.GetComponent<SpriteRenderer>().color = originalColor;
+		}
 	}
+
+	void GotoNextPoint() 
+	{
+            // Returns if no points have been set up
+            if (patrolPoints.Length == 0)
+			{
+                return;
+			}
+
+            // Set the agent to go to the currently selected destination.
+            agent.destination = patrolPoints[pointIndex].position;
+
+            // Choose the next point in the array as the destination,
+            // cycling to the start if necessary.
+            pointIndex = (pointIndex + 1) % patrolPoints.Length;
+        }
 
 	public void SetAggro()
 	{
-		currState = AIState.Aggro;
+		if(currState!= AIState.Frozen)
+		{
+			currState = AIState.Aggro;
+		}
 	}
 
 	public void SetInRange(bool inRange)
@@ -112,5 +170,11 @@ public class EnemyAI : MonoBehaviour {
 	public void setAttackPossible(bool possible)
 	{
 		attackPossible = possible;
+	}
+
+	public void SetFrozen()
+	{
+		currState = AIState.Frozen;
+		freezeTimer = 0.0f;
 	}
 }

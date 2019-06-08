@@ -8,6 +8,9 @@ public class Projectile : MonoBehaviour {
 	[SerializeField] float lifespan;
 	[SerializeField] int damage;
 	bool isEnemyProjectile;
+	
+	//use only if the projectile is a bouncing lightning projectile
+	GameObject originalEmeny;
 
 	// Update is called once per frame
 	void Update () {
@@ -23,11 +26,12 @@ public class Projectile : MonoBehaviour {
 		
 	}
 
-	public void Init(Camera cam, Vector3 direction, bool isEnemy)
+	public void Init(Camera cam, Vector3 direction, bool isEnemy, GameObject enemy)
 	{
 		isEnemyProjectile = isEnemy;
 		transform.forward = direction;
 		gameObject.transform.GetChild(0).GetComponent<Billboard>().SetCam(cam);
+		originalEmeny = enemy;
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -47,7 +51,7 @@ public class Projectile : MonoBehaviour {
 
 		}
 
-		if(other.tag == "Enemy" && !isEnemyProjectile)
+		if(other.tag == "Enemy" && !isEnemyProjectile && other.gameObject != originalEmeny)
 		{
 			//do damage to enemy
 			other.gameObject.GetComponent<EnemyDamage>().TakeDamage(damage);
