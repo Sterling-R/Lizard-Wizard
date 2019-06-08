@@ -50,13 +50,16 @@ public class Billboard : MonoBehaviour {
 			}
 		}
 
-
-
 	}
 
 	public void SetCam(Camera newCam)
 	{
 		cam = newCam; 
+	}
+
+	public Camera GetCam()
+	{
+		return cam;
 	}
 
 	void SetSprite(int index)

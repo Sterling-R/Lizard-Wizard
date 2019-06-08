@@ -6,7 +6,7 @@ public class EnemyDamage : MonoBehaviour {
 
 	[SerializeField] int maxHitPoints;
 	[SerializeField] ParticleSystem deathParticle;
-	int currHitPoints;
+	public int currHitPoints;
 	// Use this for initialization
 	void Start () {
 		currHitPoints = maxHitPoints;
