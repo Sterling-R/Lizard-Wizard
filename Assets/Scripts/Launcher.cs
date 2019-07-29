@@ -21,6 +21,8 @@ public class Launcher : MonoBehaviour {
 	[SerializeField] Spell[] spells;
 	int currSpellIndex;
 
+	[SerializeField] AudioClip[] spellFX;
+	[SerializeField] AudioSource source;
 
 	// Use this for initialization
 	void Start () 
@@ -33,68 +35,85 @@ public class Launcher : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(coolDownTimer < coolDown)
+		if(!transform.parent.parent.GetComponent<PlayerController>().isDead)
 		{
-			coolDownTimer += Time.deltaTime;
-		}
 
-		if(Input.GetMouseButton(0) && coolDownTimer >= coolDown && (spells[currSpellIndex].mana > 0 || currSpellIndex == 0))
-		{
-			GameObject currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-			currProjectile.GetComponent<Projectile>().Init(cam, cam.transform.forward, false, null);
+			if(coolDownTimer < coolDown)
+			{
+				coolDownTimer += Time.deltaTime;
+			}
+
+			if(Input.GetMouseButton(0) && coolDownTimer >= coolDown && (spells[currSpellIndex].mana > 0 || currSpellIndex == 0))
+			{
+				GameObject currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+				currProjectile.GetComponent<Projectile>().Init(cam, cam.transform.forward, false, null);
+				
+				//intstantiate two additional projectiles for ice spell
+				if(currSpellIndex == 2)
+				{
+					currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+					currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(-5, Vector3.up) * cam.transform.forward, false, null);
+
+					currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
+					currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(5, Vector3.up) * cam.transform.forward, false, null);
+				}
+
+				coolDownTimer = 0.0f;
+				spells[currSpellIndex].mana -= 1;
+
+				if(currSpellIndex == 3)
+				{	
+					if(!source.isPlaying)
+					{
+						source.clip = spellFX[currSpellIndex];
+						source.Play();
+					}
+				}
+
+				else
+				{
+					source.clip = spellFX[currSpellIndex];
+					source.Play();
+				}
+			}
+
+			//swap to spells using number keys
 			
-			//intstantiate two additional projectiles for ice spell
-			if(currSpellIndex == 2)
+			//magic missle
+			if(Input.GetKeyDown(KeyCode.Alpha1))
 			{
-				currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-				currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(-5, Vector3.up) * cam.transform.forward, false, null);
-
-				currProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
-				currProjectile.GetComponent<Projectile>().Init(cam, Quaternion.AngleAxis(5, Vector3.up) * cam.transform.forward, false, null);
+				//don't check mana for default spell
+				SetCurrSpell(0);
 			}
 
-
-
-			coolDownTimer = 0.0f;
-			spells[currSpellIndex].mana -= 1;
-		}
-
-		//swap to spells using number keys
-		
-		//magic missle
-		if(Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			//don't check mana for default spell
-			SetCurrSpell(0);
-		}
-
-		//fireball
-		if(Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			//check that player has mana for spell
-			if(spells[1].mana > 0)
+			//fireball
+			if(Input.GetKeyDown(KeyCode.Alpha2))
 			{
-				SetCurrSpell(1);
+				//check that player has mana for spell
+				if(spells[1].mana > 0)
+				{
+					SetCurrSpell(1);
+				}
 			}
-		}
 
-		//ice
-		if(Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			//check that player has mana for spell
-			if(spells[2].mana > 0)
+			//ice
+			if(Input.GetKeyDown(KeyCode.Alpha3))
 			{
-				SetCurrSpell(2);
+				//check that player has mana for spell
+				if(spells[2].mana > 0)
+				{
+					SetCurrSpell(2);
+				}
 			}
-		}
 
-		//lightning
-		if(Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			//check that player has mana for spell
-			if(spells[3].mana > 0)
+			//lightning
+			if(Input.GetKeyDown(KeyCode.Alpha4))
 			{
-				SetCurrSpell(3);
+				//check that player has mana for spell
+				if(spells[3].mana > 0)
+				{
+					SetCurrSpell(3);
+				}
 			}
 		}
 	}

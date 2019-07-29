@@ -7,6 +7,7 @@ public class Ammo : MonoBehaviour {
 	//index of the spell which this object provides mana for 
 	[SerializeField] int spellIndex;
 	[SerializeField] int manaAmount;
+	[SerializeField] GameObject manaSound;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,8 +22,11 @@ public class Ammo : MonoBehaviour {
 	{
 		if(other.tag == "Player")
 		{
+			Instantiate(manaSound, transform.position, Quaternion.identity);
 			other.gameObject.GetComponent<PlayerController>().AddMana(spellIndex, manaAmount);
 			Destroy(gameObject);
+
+			
 		}
 	}
 }

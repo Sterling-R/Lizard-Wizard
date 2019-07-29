@@ -32,45 +32,47 @@ public class FPS_Control : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-
-        m_MovX = Input.GetAxis("Horizontal");
-        m_MovY = Input.GetAxis("Vertical");
-
-        m_moveHorizontal = transform.right * m_MovX;
-        m_movVertical = transform.forward * m_MovY;
-
-        m_velocity = (m_moveHorizontal + m_movVertical).normalized * speed;
-
-        //mouse movement 
-        m_yRot = Input.GetAxisRaw("Mouse X");
-        m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
-
-        m_xRot = Input.GetAxisRaw("Mouse Y");
-        m_cameraRotation = new Vector3(m_xRot, 0, 0) * m_lookSensitivity;
-
-        //apply camera rotation
-
-        //move the actual player here
-        if (m_velocity != Vector3.zero)
+        if(!gameObject.GetComponent<PlayerController>().isDead)
         {
-            m_Rigid.MovePosition(m_Rigid.position + m_velocity * Time.fixedDeltaTime);
-        }
+            m_MovX = Input.GetAxis("Horizontal");
+            m_MovY = Input.GetAxis("Vertical");
 
-        if (m_rotation != Vector3.zero)
-        {
-            //rotate the camera of the player
-            m_Rigid.MoveRotation(m_Rigid.rotation * Quaternion.Euler(m_rotation));
-        }
+            m_moveHorizontal = transform.right * m_MovX;
+            m_movVertical = transform.forward * m_MovY;
 
-        if (m_Camera != null)
-        {
-            //negate this value so it rotates like a FPS
-            m_Camera.transform.Rotate(-m_cameraRotation);
+            m_velocity = (m_moveHorizontal + m_movVertical).normalized * speed;
 
-            //clamp the camera
-            if(m_Camera.transform.localRotation.x > 0.69 || m_Camera.transform.localRotation.x < -0.69)
+            //mouse movement 
+            m_yRot = Input.GetAxisRaw("Mouse X");
+            m_rotation = new Vector3(0, m_yRot, 0) * m_lookSensitivity;
+
+            m_xRot = Input.GetAxisRaw("Mouse Y");
+            m_cameraRotation = new Vector3(m_xRot, 0, 0) * m_lookSensitivity;
+
+            //apply camera rotation
+
+            //move the actual player here
+            if (m_velocity != Vector3.zero)
             {
-                m_Camera.transform.Rotate(m_cameraRotation);
+                m_Rigid.MovePosition(m_Rigid.position + m_velocity * Time.fixedDeltaTime);
+            }
+
+            if (m_rotation != Vector3.zero)
+            {
+                //rotate the camera of the player
+                m_Rigid.MoveRotation(m_Rigid.rotation * Quaternion.Euler(m_rotation));
+            }
+
+            if (m_Camera != null)
+            {
+                //negate this value so it rotates like a FPS
+                m_Camera.transform.Rotate(-m_cameraRotation);
+
+                //clamp the camera
+                if(m_Camera.transform.localRotation.x > 0.69 || m_Camera.transform.localRotation.x < -0.69)
+                {
+                    m_Camera.transform.Rotate(m_cameraRotation);
+                }
             }
         }
 

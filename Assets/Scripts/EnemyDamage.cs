@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour {
 
 	[SerializeField] int maxHitPoints;
-	[SerializeField] ParticleSystem deathParticle;
+	[SerializeField] GameObject deathParticle;
+	[SerializeField] GameObject deathSound;
 	public int currHitPoints;
 	// Use this for initialization
 	void Start () {
@@ -16,10 +17,13 @@ public class EnemyDamage : MonoBehaviour {
 	void Update () {
 		if(currHitPoints <= 0)
 		{
-			//play death animation or do a death particle effect
-			deathParticle.transform.position = transform.position;
-			deathParticle.Play();
-			//
+			//play death particle effect and sound
+			Quaternion rot = Quaternion.identity;
+			rot.eulerAngles = new Vector3(-90f,0f,0f);
+			GameObject particle = Instantiate(deathParticle, transform.position, rot);
+			//particle.GetComponent<ParticleSystem>().Play();
+
+			Instantiate(deathSound,transform.position, Quaternion.identity);
 
 			Destroy(gameObject);
 

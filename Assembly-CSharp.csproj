@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ParticleSpawn.cs" />
      <Compile Include="Assets\Scripts\AggroSphere.cs" />
      <Compile Include="Assets\Scripts\Ammo.cs" />
      <Compile Include="Assets\Scripts\AttackSphere.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\Scripts\FPS_Control.cs" />
      <Compile Include="Assets\Scripts\HeadBob.cs" />
      <Compile Include="Assets\Scripts\Ice.cs" />
+     <Compile Include="Assets\Scripts\Key.cs" />
      <Compile Include="Assets\Scripts\Launcher.cs" />
      <Compile Include="Assets\Scripts\Lightning.cs" />
      <Compile Include="Assets\Scripts\MessageText.cs" />
@@ -73,7 +75,8 @@
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\Spark.cs" />
      <Compile Include="Assets\Scripts\SparkGenerator.cs" />
-     <None Include="Assets\Scripts\WorldSpaceTiling.shader" />
+     <Compile Include="Assets\Scripts\WorldSound.cs" />
+     <None Include="Assets\Scripts\GUI3DText Shader.shader" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Documents/Unity_Projects/Lizard Wizard/Lizard Wizard/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
