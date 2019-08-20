@@ -1,12 +1,17 @@
 # Lizard-Wizard
 
 How To Run:
+	
 	Open the file "Lizard_Wizard_Build" and click on the goblin icon that reads "Lizard Wizard"
 
 How To Play:
+
 	WASD - Move
+
 	Mouse - Look
+	
 	Left-Click - Cast Spell
+	
 	1,2,3,4 - Select spell
 	
 	Spells Include: 
