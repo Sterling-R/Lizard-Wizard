@@ -20,7 +20,7 @@ public class Ammo : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Player")
+		if(other.gameObject.GetComponent<PlayerController>())
 		{
 			Instantiate(manaSound, transform.position, Quaternion.identity);
 			other.gameObject.GetComponent<PlayerController>().AddMana(spellIndex, manaAmount);

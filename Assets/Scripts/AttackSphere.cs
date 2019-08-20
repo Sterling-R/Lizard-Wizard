@@ -16,7 +16,7 @@ public class AttackSphere : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.gameObject.GetComponent<PlayerController>())
 		{
 			transform.parent.GetComponent<EnemyAI>().SetInRange(true);
 		}
@@ -24,7 +24,7 @@ public class AttackSphere : MonoBehaviour {
 
 	void OnTriggerStay(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.gameObject.GetComponent<PlayerController>())
 		{
 			//if there are no walls between the enemy and the player, attacking is possible
 			if(!Physics.Linecast(transform.parent.transform.position, other.gameObject.transform.position, LayerMask.GetMask("Wall")))
@@ -41,7 +41,7 @@ public class AttackSphere : MonoBehaviour {
 
 	void OnTriggerExit(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.gameObject.GetComponent<PlayerController>())
 		{
 			transform.parent.GetComponent<EnemyAI>().SetInRange(false);
 			transform.parent.GetComponent<EnemyAI>().setAttackPossible(false);

@@ -14,20 +14,42 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] GameObject damageFlash;
 	[SerializeField] GameObject deathText;
 	[SerializeField] GameObject DamageSound;
+	[SerializeField] GameObject[] hands;
 	int currHealth;
 
 	Launcher.Spell currSpell;
 	public bool isDead;
+	public bool isFrozen;
+	Color freezeColor;
+	Color originalColor;
+	[SerializeField] float freezeCooldown;
+	float freezeTimer;
 
 
 	// Use this for initialization
 	void Start () {
 		currHealth = maxHealth;
 		isDead = false;
+
+		freezeColor = new Color (0,150,255,255);
+		originalColor = hands[0].GetComponent<SpriteRenderer>().color;
+		freezeTimer = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(isFrozen)
+		{
+			freezeTimer += Time.deltaTime;
+			
+			if(freezeTimer >= freezeCooldown)
+			{
+				SetFrozen(false);
+				freezeTimer = 0;
+				hands[0].transform.parent.gameObject.GetComponent<HeadBob>().enabled = true;
+			}
+		}
 
 		if(!isDead)
 		{
@@ -89,7 +111,10 @@ public class PlayerController : MonoBehaviour {
 
 		if(!isDead && GameObject.Find("DamageSound") == null)
 		{
-			Instantiate(DamageSound, transform.position, Quaternion.identity);
+			if(damage > 0)
+			{
+				Instantiate(DamageSound, transform.position, Quaternion.identity);
+			}
 		}
 
 	}
@@ -126,5 +151,24 @@ public class PlayerController : MonoBehaviour {
 	public GameObject GetMessageText()
 	{
 		return messageText;
+	}
+
+	public void SetFrozen(bool frozen)
+	{
+		isFrozen = frozen;
+
+		hands[0].transform.parent.gameObject.GetComponent<HeadBob>().enabled = false;
+
+		if(isFrozen)
+		{
+			hands[0].GetComponent<SpriteRenderer>().color = freezeColor;
+			hands[1].GetComponent<SpriteRenderer>().color = freezeColor;
+		}
+
+		else
+		{
+			hands[0].GetComponent<SpriteRenderer>().color = originalColor;
+			hands[1].GetComponent<SpriteRenderer>().color = originalColor;
+		}
 	}
 }

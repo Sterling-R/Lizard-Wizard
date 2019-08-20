@@ -43,7 +43,7 @@ public class SparkGenerator : MonoBehaviour {
 
 	void OnTriggerStay(Collider other)
 	{
-		if (other.tag == "Enemy" && other.gameObject != originalEnemy)
+		if (other.gameObject.GetComponent<EnemyDamage>() && other.gameObject != originalEnemy)
 		{
 			//if there are no walls between the generator and the enemy, shoot a spark that way
 			if(!Physics.Linecast(transform.position, other.gameObject.transform.position, LayerMask.GetMask("Wall")))

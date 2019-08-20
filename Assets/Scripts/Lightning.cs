@@ -17,7 +17,7 @@ public class Lightning : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Enemy")
+		if(other.gameObject.GetComponent<EnemyDamage>())
 		{
 			GameObject sparkGenrate = Instantiate(sparkGenerator, transform.position, Quaternion.identity);
 			sparkGenrate.GetComponent<SparkGenerator>().Init(other.gameObject, cam);

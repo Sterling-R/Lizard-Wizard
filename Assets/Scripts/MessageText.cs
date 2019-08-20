@@ -6,11 +6,13 @@ public class MessageText : MonoBehaviour {
 
 	[SerializeField] float messageDuration;
 	float timer;
+	bool cleared;
 
 	// Use this for initialization
 	void Start () {
 		gameObject.GetComponent<TextMesh>().text = "";
 		timer = 0f;
+		cleared = true;
 	}
 	
 	// Update is called once per frame
@@ -21,9 +23,11 @@ public class MessageText : MonoBehaviour {
 			timer -= Time.deltaTime;
 		}
 
-		if(timer <= 0)
+		if(timer <= 0 && !cleared)
 		{
-			gameObject.GetComponent<TextMesh>().text = "";	
+			gameObject.GetComponent<TextMesh>().text = "";
+			cleared = true;
+			Debug.Log("oop");	
 		}
 		
 	}
@@ -32,5 +36,6 @@ public class MessageText : MonoBehaviour {
 	{
 		gameObject.GetComponent<TextMesh>().text = message;
 		timer = messageDuration;
+		cleared = false;
 	}
 }

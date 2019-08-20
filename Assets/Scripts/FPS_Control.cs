@@ -32,7 +32,7 @@ public class FPS_Control : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if(!gameObject.GetComponent<PlayerController>().isDead)
+        if(!(gameObject.GetComponent<PlayerController>().isDead || gameObject.GetComponent<PlayerController>().isFrozen))
         {
             m_MovX = Input.GetAxis("Horizontal");
             m_MovY = Input.GetAxis("Vertical");
@@ -54,7 +54,7 @@ public class FPS_Control : MonoBehaviour
             //move the actual player here
             if (m_velocity != Vector3.zero)
             {
-                m_Rigid.MovePosition(m_Rigid.position + m_velocity * Time.fixedDeltaTime);
+                m_Rigid.MovePosition(m_Rigid.position + m_velocity * Time.deltaTime);
             }
 
             if (m_rotation != Vector3.zero)
@@ -75,6 +75,7 @@ public class FPS_Control : MonoBehaviour
                 }
             }
         }
-
     }
+
 }
+

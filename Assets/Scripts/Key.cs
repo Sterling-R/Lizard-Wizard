@@ -20,7 +20,7 @@ public class Key : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Player")
+		if(other.gameObject.GetComponent<PlayerController>())
 		{
 			Instantiate(keySound, transform.position, Quaternion.identity);
 			other.gameObject.GetComponent<PlayerController>().GetMessageText().GetComponent<MessageText>().DisplayMessage(color + " Doors Unlocked");

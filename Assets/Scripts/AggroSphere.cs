@@ -13,7 +13,7 @@ public class AggroSphere : MonoBehaviour {
 	// Update is called once per frame
 	void OnTriggerStay(Collider other)
 	{
-		if (other.tag == "Player")
+		if (other.gameObject.GetComponent<PlayerController>())
 		{
 			//if there are no walls between the enemy and the player, go into aggro state
 			if(!Physics.Linecast(transform.parent.transform.position, other.gameObject.transform.position, LayerMask.GetMask("Wall")))

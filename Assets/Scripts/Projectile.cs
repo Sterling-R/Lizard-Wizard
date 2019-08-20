@@ -36,13 +36,13 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		
-		if (other.tag == "Wall")
+		//hit a wall
+		if (other.GetComponent<ComputeTextureTiling>())
 		{
 			Destroy(gameObject);
 		}
 
-		if (other.tag == "Player" && isEnemyProjectile)
+		if (other.gameObject.GetComponent<PlayerController>() && isEnemyProjectile)
 		{
 			//do damage to player
 			other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour {
 
 		}
 
-		if(other.tag == "Enemy" && !isEnemyProjectile && other.gameObject != originalEmeny)
+		if(other.gameObject.GetComponent<EnemyDamage>() && !isEnemyProjectile && other.gameObject != originalEmeny)
 		{
 			//do damage to enemy
 			other.gameObject.GetComponent<EnemyDamage>().TakeDamage(damage);

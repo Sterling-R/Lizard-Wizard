@@ -8,6 +8,7 @@ public class EnemyDamage : MonoBehaviour {
 	[SerializeField] GameObject deathParticle;
 	[SerializeField] GameObject deathSound;
 	public int currHitPoints;
+
 	// Use this for initialization
 	void Start () {
 		currHitPoints = maxHitPoints;

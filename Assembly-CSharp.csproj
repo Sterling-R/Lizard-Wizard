@@ -53,6 +53,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BossAI.cs" />
+     <Compile Include="Assets\BossIce.cs" />
+     <Compile Include="Assets\BossTrigger.cs" />
+     <Compile Include="Assets\EndGame.cs" />
      <Compile Include="Assets\ParticleSpawn.cs" />
      <Compile Include="Assets\Scripts\AggroSphere.cs" />
      <Compile Include="Assets\Scripts\Ammo.cs" />

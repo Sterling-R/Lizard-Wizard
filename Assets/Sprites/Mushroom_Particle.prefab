@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4979377466739490}
   - component: {fileID: 198392272601569004}
   - component: {fileID: 199260289869086578}
+  - component: {fileID: 114788894244599974}
   m_Layer: 0
   m_Name: Mushroom_Particle
   m_TagString: Untagged
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114788894244599974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1669740143829782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72eb2cae2ebb9674eaa73b751f911f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198392272601569004
 ParticleSystem:
   m_ObjectHideFlags: 1

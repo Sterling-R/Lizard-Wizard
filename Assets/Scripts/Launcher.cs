@@ -35,7 +35,7 @@ public class Launcher : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(!transform.parent.parent.GetComponent<PlayerController>().isDead)
+		if(!(transform.parent.parent.GetComponent<PlayerController>().isDead || transform.parent.parent.GetComponent<PlayerController>().isFrozen))
 		{
 
 			if(coolDownTimer < coolDown)

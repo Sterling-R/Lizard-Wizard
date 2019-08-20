@@ -36,18 +36,17 @@ public class Fireball : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		
-		if (other.tag == "Wall")
+		if (other.gameObject.GetComponent<ComputeTextureTiling>())
 		{
 			Destroy(gameObject);
 		}
 
-		if (other.tag == "Enemy")
+		if (other.gameObject.GetComponent<EnemyDamage>())
 		{
 			//do damage
 			other.gameObject.GetComponent<EnemyDamage>().TakeDamage(damage);
 
 			Destroy(gameObject);
-
 		}
 
 	}
